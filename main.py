@@ -9,6 +9,9 @@ async def get_time():
 
 @app.post("/")
 async def post_time(request: Request):
-    # Accept any JSON body but ignore it
-    _ = await request.json()
+    try:
+        await request.json()  # Try parsing JSON, even if we ignore it
+    except Exception:
+        pass  # Ignore any parsing errors
     return {"current_time": datetime.now().isoformat()}
+
